@@ -1,0 +1,65 @@
+@model ZipShare.ViewModels.UserRegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="page-header">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+</div>
+<div id="register-form" class="row">
+  @using( @Html.BeginForm("Register", "Account", FormMethod.Post, new { role="form" }))
+  {
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-6 col-md-offset-3">
+      <h3 class="lead">User Info</h3>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.FirstName, new { @class="form-control", @placeholder="Enter FirstName", @id="firstNameTextBox" })
+      </div>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.LastName, new {@class = "form-control", @placeholder = "LastName", @id = "lastnameTextbox"})
+      </div>
+      <div class="form-group">  
+        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", @placeholder = "Email Address", @id = "emailTextbox"})
+      </div>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", @placeholder = "UserName", @id = "userNameTextbox"})
+      </div>
+      <div class="form-group"> 
+        @Html.PasswordFor(m => m.Password, new { @class="form-control", @placeholder = "Enter Password"})
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-md-offset-3">
+      <h3 class="lead">Address</h3>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.UnitNumber, new { @class="form-control", @placeholder="Unit Number", @id="unitNumberTextbox" })
+      </div>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.StreetNumber, new { @class="form-control", @placeholder="Street Number", @id="streetNumberTextbox" })
+      </div>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.StreetName, new { @class="form-control", @placeholder="Street Name", @id="streetNameTextbox" })
+      </div>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.City, new { @class="form-control", @placeholder="City", @id="cityTextbox" })
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="stateDropdown">
+          <option>Please Select A State...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.ZipCode, null, new { @class="form-control", @placeholder="ZipCode", @id="zipcodeTextbox" })
+      </div>
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.PONumber, null, new { @class="form-control", @placeholder="PO. Box", @id="streetNameTextbox" })
+      </div>
+
+      <button type="submit" class="btn btn-success submit-button">Submit</button>
+    </div>
+  }
+
+  
+
+</div>

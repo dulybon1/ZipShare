@@ -1,0 +1,31 @@
+@model ZipShare.ViewModels.UserLoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="page-header">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+</div>
+<div class="container">
+
+    @if(ViewBag.message != null)
+    {
+        <div class="alert alert-danger text-center col-md-6 col-md-offset-3" >
+            @ViewBag.message
+        </div>
+    }
+    
+@using( @Html.BeginForm("Login", "Account", FormMethod.Post, new {@class="col-md-6 col-md-offset-3", role="form" }))
+  {
+  <div class="form-group">
+    @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", @placeholder = "LastName", @id = "userNameTextbox"})
+  </div>
+  <div class="form-group">
+    @Html.PasswordFor(m => m.Password, new { @class="form-control", @placeholder = "Enter Password"})
+  </div>
+  <div class="form-group">
+    <span>No Account, <a href="~/account/register">Register!</a></span>
+    <button type="submit" class="btn btn-success submit-button">Submit</button>
+  </div>
+  }
+</div>
