@@ -1,15 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using ZipShare.ViewModels;
 using ZipShare.Models;
+using ZipShare.DataAccess;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ZipShare.Controllers
 {
     public class AccountController: Controller
     {
+        public List<State> states;
+
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            states = Address.LoadStatesFromJSON();
+            var model = new UserRegisterModel();
+            model.States = new SelectList(states, "StateAbbreviation","StateName");
+            return View(model);
         }
 
         [HttpPost]
@@ -34,6 +42,7 @@ namespace ZipShare.Controllers
                 StreetName = model.StreetName,
                 City = model.City,
                 State = model.State,
+                ZipCode = model.ZipCode,
                 UnitNumber = model.UnitNumber != null ? model.UnitNumber : string.Empty,
                 PONumber = model.PONumber != null ? model.PONumber : string.Empty,
                 Residential = model.PONumber != null ? true : false
@@ -42,7 +51,11 @@ namespace ZipShare.Controllers
             user.UserAddress = address;
 
             //TODO: do something with the data (send to database)
-
+            using(var db = new DatabaseContext())
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
             //redirect to Home page
             return RedirectToAction("Index", "Home");
         }

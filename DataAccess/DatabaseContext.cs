@@ -11,7 +11,7 @@ namespace ZipShare.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=./Todo.db");
+            optionsBuilder.UseSqlite("Filename=./ZipShare.db");
         }
     }
 }

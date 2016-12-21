@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ZipShare.DataAccess;
 
 namespace ZipShare
 {
@@ -20,6 +21,11 @@ namespace ZipShare
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            using(var db = new DatabaseContext())
+            {
+                db.Database.EnsureCreated();
+            }
         }
 
         public IConfigurationRoot Configuration { get; }

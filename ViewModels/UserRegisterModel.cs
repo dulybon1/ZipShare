@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ZipShare.ViewModels
 {
@@ -30,6 +31,7 @@ namespace ZipShare.ViewModels
 
         [Required]
         public string State { get; set; }
+        public SelectList States { get; set; }
 
         [Required]
         public string ZipCode { get; set; }
